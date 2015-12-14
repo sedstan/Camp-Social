@@ -4,7 +4,7 @@ var findOrCreate = require('mongoose-findorcreate');
 var linkSchema  =mongoose.Schema({
   href: { type: String, required: true, unique: true },
   title: String,
-  id: id
+  // id: id
   
 
 });
