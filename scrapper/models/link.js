@@ -5,8 +5,6 @@ var linkSchema  =mongoose.Schema({
   href: { type: String, required: true, unique: true },
   title: String,
   // id: id
-  
-
 });
 
 linkSchema.plugin(findOrCreate);
