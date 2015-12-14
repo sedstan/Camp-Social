@@ -1,0 +1,19 @@
+{
+  "name": "wdi-ldn-project-4-camp-social",
+  "version": "1.0.0",
+  "description": "A Social Camping Site",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sedstan/wdi-ldn-project-4-camp-social.git"
+  },
+  "author": "Sedky S. Said",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sedstan/wdi-ldn-project-4-camp-social/issues"
+  },
+  "homepage": "https://github.com/sedstan/wdi-ldn-project-4-camp-social#readme"
+}
