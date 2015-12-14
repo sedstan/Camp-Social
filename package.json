@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/sedstan/wdi-ldn-project-4-camp-social/issues"
   },
-  "homepage": "https://github.com/sedstan/wdi-ldn-project-4-camp-social#readme"
+  "homepage": "https://github.com/sedstan/wdi-ldn-project-4-camp-social#readme",
+  "dependencies": {
+    "express": "^4.13.3",
+    "morgan": "^1.6.1"
+  }
 }
