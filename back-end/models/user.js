@@ -8,8 +8,7 @@ var userSchema = mongoose.Schema({
     image: { type: String },
     email: { type: String, unique: true, required: true },
     password: { type: String, required: true }
-  },
-  
+  }
 });
 
 userSchema.statics.encrypt = function(password) {
