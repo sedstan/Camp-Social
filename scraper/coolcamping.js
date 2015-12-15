@@ -37,6 +37,22 @@ function scrape(url){
         }
 
         return console.log(data);
+        
+        // Link.find({ href: data.href}, function(err, link) {
+        //   if(err) return console.log( "There was an error saving " + data.href + ": " + err.errmsg);
+        //   if(link) {
+        //     Link.findByIdAndUpdate(link._id, data, function(err, link) {
+        //       if(err) return console.log("there was an error updating " + data.href + ": " + err.errmsg);
+        //       return console.log("'%s' was updated.", data.href);
+        //     }); 
+        //   } else {
+        //     Link.create(data, function(err, link) {
+        //       if(err) return console.log("There was an error creating " + data.heref + ": " +err.errmsg);
+        //       return console.log("'%s' was created." , data.href);
+        //     });
+        //   }
+        // });
+        
       });
     }
 
