@@ -17,11 +17,30 @@ var countries = [
   "Wales",
   "Scotland",
   "England",
+  "france",
+  "spain",
+  "Republic-of-Ireland",
+  "Northern_Ireland",
+  "germany",
+  "italy",
+  "portugal",
+  "switzerland",
+  "Channel_Islands",
+  "croatia",
+  "usa",
+  "austria",
+  "belgium",
+  "luxembourg",
+  "hungary",
+  "slovenia",
+  "netherlands",
+  "poland",
+  "san-marino"
 ]
 
 var base_url = "https://www.pitchup.com/campsites"
 var country  = "England"
-var page     = 21;
+var page     = 1;
 var path     = "/" + country + "?page=" + page;
 var url      = base_url + path;
 var promises = [];
