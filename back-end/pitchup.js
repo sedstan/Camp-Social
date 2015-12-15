@@ -3,11 +3,14 @@ var cheerio  = require ("cheerio");
 var mongoose = require("mongoose");
 var Campsite = require("./models/campsite");
 var config   = require("./config/config");
-var Q        = require('q');
-var geocoder = require('geocoder');
+// var Q        = require('q');
+var promise  = require("bluebird");
+var geocoder = require('geocoder')
 
-// Replace mongoose promises with Q promises
-require('mongoose').Promise = require('q').Promise;
+// Replace mongoose promises with bluebird promises
+require('mongoose').Promise = promise;
+// Replace all geocoders functions to be promises
+promise.promisifyAll(geocoder)
 
 mongoose.connect(config.database);
 
@@ -30,81 +33,87 @@ function scrape(url){
       var $ = cheerio.load(body);
 
       $(".searchResult").each(function(){
-        // var url = $(this).children("table").children("tbody").children("tr").children("td.campsite-image-cell").children("div.ribbon-wrapper").children("a").attr("href")
-
         var image = $(this).children("table").children("tr").children(".campsite-image-cell").children(".ribbon-wrapper").children("a").children("img").attr("src");
         var name = $(this).children("table").children("tr").children(".campsite-image-cell").next().children(".campsite-name-block").children("a.campsite-name").text();
         var src = $(this).children("table").children("tr").children(".campsite-image-cell").next().children(".campsite-name-block").children("a.campsite-name").attr("href");
         var address = $(this).children("table").children("tr").children(".campsite-image-cell").children(".ribbon-wrapper").children("a").children("img").attr("data-os-src").match(/(?=&pp=)(.*?)(?=;)/)[0];
         var address = address ? address.replace("&pp=", "") : null;
         var latLng   = address.split(",");
-        var latitude = latLng[0];
-        var longitide = latLng[1];
-        geocoder.reverseGeocode(latitude, longitide, function(err, data) {
-          if (err) return false;
-          console.log(name);
-          console.log(data.results[0].formatted_address);
-        });
+        var latitude = parseFloat(latLng[0]);
+        var longitide = parseFloat(latLng[1]);
+        var address;
+        var data;
 
-        // var data = {
-        //   name: name,
-        //   address: address,
-        //   latitude: latitude,
-        //   longitude: longitide,
-        //   image: image,
-        //   url: base_url + src
-        // }
-        
+        var deferred = geocoderPromise(latitude, longitide)
+          .then(function(data){
+            var data = data.results[0]
+            formatted_address = data ? data.formatted_address : data;
+            address = formatted_address;
+          })
+          .then(function(){
+            data = {
+              name: name,
+              address: address,
+              latitude: latitude,
+              longitude: longitide,
+              image: image,
+              url: base_url + src
+            }
+            // console.log(data);
 
-        // console.log(data);
-    //     console.log(data.name + " was found");
+            // Mongoose queries are not promises
+            var query   = Campsite.findOne({ name: data.name })
+            // Convert to promise using mongoose's .exec()
+            var promise = query.exec();
 
-    //     // Mongoose queries are not promises
-    //     var query   = Campsite.findOne({ name: data.name })
-    //     // Convert to promise using mongoose's .exec()
-    //     var promise = query.exec();
-    //     promises.push(promise);
-
-    //     promise
-    //       .then(function(campsite) {
-    //         if (campsite) {
-    //           var query   = Campsite.findByIdAndUpdate(campsite._id, data);
-    //           var promise = query.exec();
-    //           promise
-    //             .then(function(err, campsite) {
-    //               return console.log("'%s' was updated.", data.name);
-    //             })
-    //             .catch(function(err){
-    //               return console.log("There was an error updating " + data.name + ": " + err.errmsg);
-    //             }); 
-    //         } else {
-    //           Campsite
-    //             .create(data)
-    //             .exec()
-    //             .then(function(campsite) {
-    //               return console.log("'%s' was created." , data.name);
-    //             })
-    //             .catch(function(err) {
-    //               return console.log("There was an error creating " + data.name + ": " +err.errmsg);
-    //             })
-    //         }
-    //       })
-    //       .catch(function(err) {
-    //         return console.log("There was an error saving " + data.name + ": " + err.errmsg);
-    //       });
-      }); // LOOP
+            promise
+              .then(function(campsite) {
+                if (campsite) {
+                  var query   = Campsite.findByIdAndUpdate(campsite._id, data);
+                  var promise = query.exec();
+                  promise
+                    .then(function(err, campsite) {
+                      return console.log("'%s' was updated.", data.name);
+                    })
+                    .catch(function(err){
+                      return console.log("There was an error updating " + data.name + ": " + err.errmsg);
+                    }); 
+                } else {
+                  Campsite
+                    .create(data)
+                    .exec()
+                    .then(function(campsite) {
+                      return console.log("'%s' was created." , data.name);
+                    })
+                    .catch(function(err) {
+                      return console.log("There was an error creating " + data.name + ": " +err.errmsg);
+                    })
+                }
+              })
+              .catch(function(err) {
+                return console.log("There was an error saving " + data.name + ": " + err);
+              });
+          });
+        promises.push(deferred)
+      }) // <!-- LOOP -->       
     }
 
-    // // Quit
-    // Q
-    //   .all(promises)
-    //   .then(function() { 
-    //     console.log('finished!');
-    //     return process.exit(); 
-    //   })
-    //   .fail(function(){
-    //     console.error()
-    //     return process.exit();
-    //   });  
+    promise.all(promises)
+      .then(function() { 
+        console.log('finished!');
+        return process.exit(); 
+      })
+  });
+};
+
+function geocoderPromise(lat,lng) {
+  return new promise(function(resolve, reject) {
+    geocoder.reverseGeocodeAsync(lat,lng)
+    .then(function(data) {
+      resolve(data);
+    });
+  })
+  .catch(function(err) {
+    console.log(err);
   });
 };
