@@ -3,7 +3,6 @@ var cheerio  = require ("cheerio");
 var mongoose = require("mongoose");
 var Campsite = require("./models/campsite");
 var config   = require("./config/config");
-// var Q        = require('q');
 var promise  = require("bluebird");
 var geocoder = require('geocoder')
 
@@ -14,11 +13,16 @@ promise.promisifyAll(geocoder)
 
 mongoose.connect(config.database);
 
+var countries = [
+  "Wales",
+  "Scotland",
+  "England",
+]
+
 var base_url = "https://www.pitchup.com/campsites"
 var country  = "England"
-var region   = "South_West"
-var page     = 1;
-var path     = "/" + country + "/" + region +"?page=" + 1;
+var page     = 21;
+var path     = "/" + country + "?page=" + page;
 var url      = base_url + path;
 var promises = [];
 
@@ -28,7 +32,17 @@ function scrape(url){
 
   return request(url, function(error, response, body){
     if (error) return console.log(error);
-    if (response.statusCode !== 200) return console.log("Uh oh.");
+    if (response.statusCode === 404) {
+      country = countries[countries.indexOf(country)+1]
+      if (country) {
+        page     = 1;
+        path     = "/" + country + "?page=" + page;
+        url      = base_url + path;
+        return scrape(url);
+      } else {
+        return process.exit();
+      }
+    }
     if (response.statusCode === 200) {
       var $ = cheerio.load(body);
 
@@ -36,20 +50,25 @@ function scrape(url){
         var image = $(this).children("table").children("tr").children(".campsite-image-cell").children(".ribbon-wrapper").children("a").children("img").attr("src");
         var name = $(this).children("table").children("tr").children(".campsite-image-cell").next().children(".campsite-name-block").children("a.campsite-name").text();
         var src = $(this).children("table").children("tr").children(".campsite-image-cell").next().children(".campsite-name-block").children("a.campsite-name").attr("href");
-        var address = $(this).children("table").children("tr").children(".campsite-image-cell").children(".ribbon-wrapper").children("a").children("img").attr("data-os-src").match(/(?=&pp=)(.*?)(?=;)/)[0];
-        var address = address ? address.replace("&pp=", "") : null;
-        var latLng   = address.split(",");
-        var latitude = parseFloat(latLng[0]);
-        var longitide = parseFloat(latLng[1]);
+        
         var address;
-        var data;
+        var mapInfo = $(this).children("table").children("tr").children(".campsite-image-cell").children(".ribbon-wrapper").children("a").children("img").attr("data-os-src")
 
+        if (mapInfo) {
+          mapInfo = mapInfo.match(/(?=&pp=)(.*?)(?=;)/)[0]
+        } else {
+          return false;
+        } 
+
+        latLngString = mapInfo ? mapInfo.replace("&pp=", "") : null;
+        var latLngArray   = latLngString ? latLngString.split(",") : null;
+        var latitude = latLngArray ? parseFloat(latLngArray[0]) : 0;
+        var longitide = latLngArray ? parseFloat(latLngArray[1]) : 0;
+        var data;
         var deferred = geocoderPromise(latitude, longitide)
           .then(function(data){
-            var data = data.results[0]
-            formatted_address = data ? data.formatted_address : data;
-            address = formatted_address;
-          })
+            address = data
+          }).catch(console.error)
           .then(function(){
             data = {
               name: name,
@@ -81,7 +100,6 @@ function scrape(url){
                 } else {
                   Campsite
                     .create(data)
-                    .exec()
                     .then(function(campsite) {
                       return console.log("'%s' was created." , data.name);
                     })
@@ -93,15 +111,17 @@ function scrape(url){
               .catch(function(err) {
                 return console.log("There was an error saving " + data.name + ": " + err);
               });
-          });
+          }).catch(console.error);
         promises.push(deferred)
       }) // <!-- LOOP -->       
     }
 
     promise.all(promises)
       .then(function() { 
-        console.log('finished!');
-        return process.exit(); 
+        page = page + 1;
+        path = "/" + country + "?page=" + page;
+        url  = base_url + path;
+        return scrape(url); 
       })
   });
 };
@@ -110,7 +130,10 @@ function geocoderPromise(lat,lng) {
   return new promise(function(resolve, reject) {
     geocoder.reverseGeocodeAsync(lat,lng)
     .then(function(data) {
-      resolve(data);
+      data = data.results[0]
+      formatted_address = data ? data.formatted_address : data;
+      formatted_address;
+      resolve(formatted_address);
     });
   })
   .catch(function(err) {
