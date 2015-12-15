@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/sedstan/wdi-ldn-project-4-camp-social#readme",
   "dependencies": {
+    "bcrypt": "^0.8.5",
     "bluebird": "^3.0.6",
     "cheerio": "^0.19.0",
     "express": "^4.13.3",
