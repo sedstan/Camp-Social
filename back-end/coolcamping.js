@@ -9,7 +9,6 @@ var Q        = require('q');
 require('mongoose').Promise = require('q').Promise;
 
 mongoose.connect(config.database);
-var conn = mongoose.connection;
 
 var limit    = "2000";
 var base_url = "https://www.coolcamping.co.uk"

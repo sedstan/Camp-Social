@@ -20,6 +20,7 @@
     "bcrypt": "^0.8.5",
     "cheerio": "^0.19.0",
     "express": "^4.13.3",
+    "geocoder": "^0.2.2",
     "kerberos": "0.0.17",
     "mongoose": "^4.3.1",
     "morgan": "^1.6.1",

@@ -1,17 +1,23 @@
 var request  = require ("request");
 var cheerio  = require ("cheerio");
 var mongoose = require("mongoose");
-var Link     = require("./models/link");
+var Campsite = require("./models/campsite");
 var config   = require("./config/config");
+var Q        = require('q');
+var geocoder = require('geocoder');
+
+// Replace mongoose promises with Q promises
+require('mongoose').Promise = require('q').Promise;
 
 mongoose.connect(config.database);
 
 var base_url = "https://www.pitchup.com/campsites"
 var country  = "England"
 var region   = "South_West"
-var path     = "/" + country + "/" + region;
-// ?page=2
+var page     = 1;
+var path     = "/" + country + "/" + region +"?page=" + 1;
 var url      = base_url + path;
+var promises = [];
 
 scrape(url);
 function scrape(url){  
@@ -26,43 +32,79 @@ function scrape(url){
       $(".searchResult").each(function(){
         // var url = $(this).children("table").children("tbody").children("tr").children("td.campsite-image-cell").children("div.ribbon-wrapper").children("a").attr("href")
 
-        var url = $(this).children("table").children("tr").children(".campsite-image-cell").children(".ribbon-wrapper").children("a").children("img").attr("src");
-        var name = $(this).children("table").children("tr").children(".campsite-image-cell").html();
-        console.log(name);
-      })
+        var image = $(this).children("table").children("tr").children(".campsite-image-cell").children(".ribbon-wrapper").children("a").children("img").attr("src");
+        var name = $(this).children("table").children("tr").children(".campsite-image-cell").next().children(".campsite-name-block").children("a.campsite-name").text();
+        var src = $(this).children("table").children("tr").children(".campsite-image-cell").next().children(".campsite-name-block").children("a.campsite-name").attr("href");
+        var address = $(this).children("table").children("tr").children(".campsite-image-cell").children(".ribbon-wrapper").children("a").children("img").attr("data-os-src").match(/(?=&pp=)(.*?)(?=;)/)[0];
+        var address = address ? address.replace("&pp=", "") : null;
+        var latLng   = address.split(",");
+        var latitude = latLng[0];
+        var longitide = latLng[1];
+        geocoder.reverseGeocode(latitude, longitide, function(err, data) {
+          if (err) return false;
+          console.log(name);
+          console.log(data.results[0].formatted_address);
+        });
 
-      // $("li.site").each(function(){
-      //   // var link    = $(this).children("a");
-      //   // var text    = link.children("div.text");
-      //   // var name    = text.children("h4").text();
-      //   // var address = text.children("div.address").text();
-      //   // var image   = link.children("div.image").children("img").attr("src");
-      //   // var src     = link.attr("href").split("?").shift();
-
-      //   // Try to keep the same
         // var data = {
         //   name: name,
         //   address: address,
-        //   image: base_url + image,
+        //   latitude: latitude,
+        //   longitude: longitide,
+        //   image: image,
         //   url: base_url + src
         // }
+        
 
-      //   return console.log(data);
-      // });
+        // console.log(data);
+    //     console.log(data.name + " was found");
+
+    //     // Mongoose queries are not promises
+    //     var query   = Campsite.findOne({ name: data.name })
+    //     // Convert to promise using mongoose's .exec()
+    //     var promise = query.exec();
+    //     promises.push(promise);
+
+    //     promise
+    //       .then(function(campsite) {
+    //         if (campsite) {
+    //           var query   = Campsite.findByIdAndUpdate(campsite._id, data);
+    //           var promise = query.exec();
+    //           promise
+    //             .then(function(err, campsite) {
+    //               return console.log("'%s' was updated.", data.name);
+    //             })
+    //             .catch(function(err){
+    //               return console.log("There was an error updating " + data.name + ": " + err.errmsg);
+    //             }); 
+    //         } else {
+    //           Campsite
+    //             .create(data)
+    //             .exec()
+    //             .then(function(campsite) {
+    //               return console.log("'%s' was created." , data.name);
+    //             })
+    //             .catch(function(err) {
+    //               return console.log("There was an error creating " + data.name + ": " +err.errmsg);
+    //             })
+    //         }
+    //       })
+    //       .catch(function(err) {
+    //         return console.log("There was an error saving " + data.name + ": " + err.errmsg);
+    //       });
+      }); // LOOP
     }
 
-    // Quit
-    return process.exit();
-  })
-}
-
-
-// $('td').each(function() {
-//   var href = $(this).children("a").children("a.smallest").attr("href").match(/(?:revid=)(.*?)(?=/)
-// So we want to return body response
-// then we want to sort through the table and return the children hrefs for the individual show pages for each park.
-// then we want to loop thru for each reagion and county
-
-// var region  = "South+East"
-// var county  = "London"
-// var url     = "http://www.ukcampsite.co.uk/sites/results.asp?region= " + region + "&county=" + county;
+    // // Quit
+    // Q
+    //   .all(promises)
+    //   .then(function() { 
+    //     console.log('finished!');
+    //     return process.exit(); 
+    //   })
+    //   .fail(function(){
+    //     console.error()
+    //     return process.exit();
+    //   });  
+  });
+};
