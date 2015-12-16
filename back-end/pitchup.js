@@ -40,7 +40,7 @@ var countries = [
 
 var base_url = "https://www.pitchup.com/campsites"
 var country  = "England"
-var page     = 600;
+var page     = 1;
 var path     = "/" + country + "?page=" + page;
 var url      = base_url + path;
 var promises = [];

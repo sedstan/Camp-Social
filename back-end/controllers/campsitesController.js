@@ -33,8 +33,21 @@ function campsitesShow(req, res) {
   })
 }
 
+function campsitesUpdate(req, res){
+  var id = req.params.id;
+
+  Campsite.findByIdAndUpdate({ _id: id }, req.body.campsite, function(err, campsite){ 
+    if(err) return res.status(500).send(err);
+    if(!campsite) return res.status(404).send(err);
+    res.status(200).send(project);
+  })
+}
+
 module.exports = {
   campsitesIndex: campsitesIndex,
   campsitesCreate: campsitesCreate,
-  campsitesShow: campsitesShow
+  campsitesShow: campsitesShow,
+  campsitesUpdate: campsitesUpdate
+
 }
+
