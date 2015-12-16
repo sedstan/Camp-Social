@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var passport   = require('bcrypt-nodejs');
+var bcrypt = require('bcrypt-nodejs');
 
 var userSchema = mongoose.Schema({
   local: {
@@ -11,7 +12,7 @@ var userSchema = mongoose.Schema({
   }
 });
 
-userSchema.statics.encrypt = function(password) {
+userSchema.methods.encrypt = function(password) {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 };
 
