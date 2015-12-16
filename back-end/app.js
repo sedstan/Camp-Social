@@ -32,4 +32,4 @@ var routes = require('./config/routes');
 app.use("/api",routes);
 
 app.listen(process.env.PORT || 3000);
-console.log("Express is alive and listening")
+console.log("Express delivery!")
