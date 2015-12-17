@@ -4,3 +4,15 @@
   border: 2px solid slategrey;
   margin: 10px 0;
 }
+
+#nature{
+  height: 100vh;
+  width: 100vw;
+  background-image: url("../assets/images/nature-background.jpeg");
+  background-position: center;
+  background-size: cover;
+}
+
+nav.navbar {
+  margin-bottom: 0;
+}

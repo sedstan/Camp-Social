@@ -1,11 +1,13 @@
 <h1>Campsites</h1>
-<div class="row">
-<div class="col-sm-12 col-lg-4" ng-repeat="campsite in campsites.all">
-    <div class="card">
-      <h3>{{campsite.name}}</h3>
-      <p>{{campsite.address}}</p>
-      <p>{{campsite.url}}</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12 col-lg-4" ng-repeat="campsite in campsites.all">
+      <div class="card">
+        <h3>{{campsite.name}}</h3>
+        <p>{{campsite.address}}</p>
+        <p>{{campsite.url}}</p>
 
+      </div>
     </div>
   </div>
 </div>
