@@ -29,7 +29,7 @@ function usersController(User, TokenService, $state, CurrentUser){
       var token = res.token ? res.token : null;
       if (token) {
         self.getUsers();
-        $state.go('home');
+        $state.go('profile');
       }
       // console.log(res);
       self.user = TokenService.decodeToken();
