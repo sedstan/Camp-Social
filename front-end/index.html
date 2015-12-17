@@ -23,6 +23,7 @@
   <script type="text/javascript" src="./bower_components/bootstrap/dist/js/bootstrap.js"></script>
   <script type="text/javascript" src="./bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
   <!-- Stylesheets -->
+  <link href='https://fonts.googleapis.com/css?family=Quicksand:400,700' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" type="text/css" href="./bower_components/bootstrap/dist/css/bootstrap.css">
   <link rel="stylesheet" type="text/css" href="./css/style.css">
    
@@ -39,15 +40,15 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a ui-sref="home" class="navbar-brand" href="#">Camp Social</a>
+        <a ui-sref="home" class="navbar-brand" href="#"><img src="./assets/images/campsocial-04.png">Camp Social</a>
       </div>
 
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
-          <li><a ui-sref="campsites">Campsites</a></li>
-          <li><a ui-sref="profile">Profile</a></li>
-          <li><a ng-click="users.logout()">Logout</a></li>
+          <li ng-show="users.checkLoggedIn()"><a ui-sref="campsites">Campsites</a></li>
+          <li ng-show="users.checkLoggedIn()"><a ui-sref="profile">Profile</a></li>
+          <li ng-show="users.checkLoggedIn()"><a ui-sref="home" ng-click="users.logout()">Logout</a></li>
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

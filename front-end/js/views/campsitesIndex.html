@@ -1,11 +1,15 @@
-<h1>Campsites</h1>
-<div class="container-fluid">
+<div class="container-fluid campsite-index">
   <div class="row">
     <div class="col-sm-12 col-lg-4" ng-repeat="campsite in campsites.all">
       <div class="card">
-        <h3>{{campsite.name}}</h3>
+        <div class='card-left'>
+        <a href="{{campsite.url}}"><h3>{{campsite.name}}</h3></a>
         <p>{{campsite.address}}</p>
-        <p>{{campsite.url}}</p>
+        </div>
+        <div class="card-right" style="background-image: url('{{campsite.image}}')">
+
+        </div>
+        <button class="btn">Add to my favorites</button>
 
       </div>
     </div>
