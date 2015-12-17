@@ -12,7 +12,8 @@ function mainRouter($stateProvider, $urlRouterProvider) {
   $stateProvider
         .state('home', {
           url:"/",
-          templateUrl: "js/views/home.html"
+          templateUrl: "js/views/home.html",
+          controller: 'homeController as home'
           
         })
         .state('profile', {
