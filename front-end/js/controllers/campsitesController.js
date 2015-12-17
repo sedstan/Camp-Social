@@ -18,11 +18,11 @@ function campsitesController(Campsite, User, CurrentUser){
     })
   }
 
-  self.getUsers = function(){
-     User.query(function(data){
-      return self.users = data.users;
-    });
-  }
+  // self.getUsers = function(){
+  //    User.query(function(data){
+  //     return self.users = data.users;
+  //   });
+  // }
 
   self.add = function(){
     var campsite = { campsite: self.campsite }
@@ -33,7 +33,6 @@ function campsitesController(Campsite, User, CurrentUser){
   }
 
   self.getCampsites();
-  self.getUsers();
 return self
-  console.log(CurrentUser.getUser());
+  
 }

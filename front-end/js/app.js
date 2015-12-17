@@ -10,15 +10,22 @@ function authInterceptor($httpProvider) {
 
 function mainRouter($stateProvider, $urlRouterProvider) {
   $stateProvider
+        .state('home', {
+          url:"/",
+          templateUrl: "js/views/home.html"
+          
+        })
         .state('profile', {
           url: "/profile",
-          templateUrl: "js/views/profile.html"
+          templateUrl: "js/views/profile.html",
+          controller: 'usersController as users'
         })
         .state('campsites', {
           url: '/campsites',
           templateUrl:  "js/views/campsitesIndex.html",
           controller: "campsitesController as campsites"
         })
+
 
       $urlRouterProvider.otherwise("/");
 }
