@@ -11,6 +11,7 @@
   background-image: url("../assets/images/nature-background.jpeg");
   background-position: center;
   background-size: cover;
+  text-align: center;
 }
 
 nav.navbar {
