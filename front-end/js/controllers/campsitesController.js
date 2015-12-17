@@ -2,10 +2,15 @@ angular
 .module('CampSocial')
 .controller("campsitesController", campsitesController);
 
-campsitesController.$inject = ["Campsite", "User", "CurrentUser"]
-function campsitesController(Campsite, User, CurrentUser){
-  var self = this;
+campsitesController.$inject = ["Campsite", "User", "CurrentUser", "$state"]
+function campsitesController(Campsite, User, CurrentUser, $state){
+  var self = this; 
 
+  self.user = CurrentUser.getUser()
+  console.log(self.user._id)
+  if (!CurrentUser.getUser()._id) {
+    return $state.go("home");
+  }
 
   self.all     = [];
   self.users   = [];

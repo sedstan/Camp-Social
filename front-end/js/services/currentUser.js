@@ -13,7 +13,7 @@ function CurrentUser(TokenService){
   }
 
   self.getUser = function(){
-    return self.user;
+    return TokenService.decodeToken();
   }
 
   self.clearUser = function(){

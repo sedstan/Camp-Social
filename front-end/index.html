@@ -48,6 +48,8 @@
         <ul class="nav navbar-nav navbar-right">
           <li ng-show="users.checkLoggedIn()"><a ui-sref="campsites">Campsites</a></li>
           <li ng-show="users.checkLoggedIn()"><a ui-sref="profile">Profile</a></li>
+          <li ng-show="!users.checkLoggedIn()"><a ui-sref="register">Register</a></li>
+          <li ng-show="!users.checkLoggedIn()"><a ui-sref="home">Login</a></li>
           <li ng-show="users.checkLoggedIn()"><a ui-sref="home" ng-click="users.logout()">Logout</a></li>
         </ul>
       </div><!-- /.navbar-collapse -->
