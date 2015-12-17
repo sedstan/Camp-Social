@@ -34,6 +34,6 @@ function campsitesController(Campsite, User, CurrentUser){
 
   self.getCampsites();
   self.getUsers();
-// return self
+return self
   console.log(CurrentUser.getUser());
 }

@@ -10,9 +10,9 @@ function authInterceptor($httpProvider) {
 
 function mainRouter($stateProvider, $urlRouterProvider) {
   $stateProvider
-        .state('users', {
-          url: "/users",
-          templateUrl: "js/views/usersIndex.html"
+        .state('profile', {
+          url: "/profile",
+          templateUrl: "js/views/profile.html"
         })
         .state('campsites', {
           url: '/campsites',

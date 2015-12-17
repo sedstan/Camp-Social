@@ -2,7 +2,7 @@ angular
 .module('CampSocial')
 .factory('Campsite', Campsite)
 
-Campsite.$inject =['resource', 'API']
+Campsite.$inject =['$resource', 'API']
 
 function Campsite($resource, API){
 

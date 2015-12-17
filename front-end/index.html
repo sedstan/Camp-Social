@@ -28,36 +28,30 @@
   
 </head>
 
-<button class="btn">Hello</button>
 <body ng-controller="usersController as users">
-  <div class="navbar">
-    <div class="navbar-inner">
-      <div class="container">
-   
-        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
-        </a>
-   
-        <!-- Be sure to leave the brand out there if you want it shown -->
-        <a class="brand" href="#">Project name</a>
-   
-        <!-- Everything you want hidden at 940px or less, place within here -->
-        <div class="nav-collapse collapse">
-          <!-- .nav, .navbar-search, .navbar-form, etc -->
-        </div>
-   
+        </button>
+        <a class="navbar-brand" href="#">Brand</a>
       </div>
-    </div>
-  </div>
 
-  <div ui-view></div>
-
-
-<!-- login -->
-
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a ui-sref="campsites">Campsites</a></li>
+          <li><a ui-sref="profile">Profile</a></li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+<div class="container-fluid" ui-view></div>
 </body>
 </html>
 
