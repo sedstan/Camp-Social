@@ -14,6 +14,11 @@ function mainRouter($stateProvider, $urlRouterProvider) {
           url: "/users",
           templateUrl: "js/views/usersIndex.html"
         })
+        .state('campsites', {
+          url: '/campsites',
+          templateUrl:  "js/views/campsitesIndex.html",
+          controller: "campsitesController as campsites"
+        })
 
       $urlRouterProvider.otherwise("/");
 }
