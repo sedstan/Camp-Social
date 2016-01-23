@@ -5,5 +5,5 @@ angular
 
 homeController.$inject=['$state']
 function homeController($state){
-  // if user a
+
 }
