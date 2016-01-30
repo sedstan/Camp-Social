@@ -14,7 +14,7 @@ function usersController(User, TokenService, $state, CurrentUser){
   self.checkLoggedIn = checkLoggedIn;
 
   self.user = CurrentUser.getUser()
-  console.log(self.user._id)
+  // console.log(self.user._id)
   if (!CurrentUser.getUser()._id) {
     return $state.go("home");
   }
@@ -71,7 +71,7 @@ function usersController(User, TokenService, $state, CurrentUser){
     if (CurrentUser.getUser()) {
       self.getUsers();
       self.user = TokenService.decodeToken();
-      console.log(self.user);
+      // console.log(self.user);
     }
 
     return self
