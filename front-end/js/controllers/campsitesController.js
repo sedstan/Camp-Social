@@ -7,7 +7,6 @@ function campsitesController(Campsite, User, CurrentUser, $state){
   var self = this; 
 
   self.user = CurrentUser.getUser()
-  console.log(self.user._id)
   if (!CurrentUser.getUser()._id) {
     return $state.go("home");
   }
