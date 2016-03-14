@@ -12,6 +12,7 @@ function usersController(User, TokenService, $state, CurrentUser){
   self.login         = login;
   self.logout        = logout;
   self.checkLoggedIn = checkLoggedIn;
+  self.edit          = editUser;
 
   self.user = CurrentUser.getUser()
   // console.log(self.user._id)
@@ -75,5 +76,11 @@ function usersController(User, TokenService, $state, CurrentUser){
     }
 
     return self
+
+    // Some function to allow user to edit upon click. 
+    // When user is logged in and clicks edit bio, the text box appears.
+    function editUser(checkLoggedIn) {
+      
+    }
   }
 
