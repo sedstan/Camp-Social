@@ -94,3 +94,7 @@ nav img {
   background-color:#5FBD6A;
   color: white; 
 }
+
+textarea {
+  resize: none;
+}
