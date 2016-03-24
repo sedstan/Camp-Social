@@ -1,23 +1,23 @@
 <!-- Logged in home display -->
 <div class="container-fluid">
   <h1>{{users.user.local.name}} 's Profile</h1> 
-    <div class="container">
-      {{users.user.local.image}}
-      <!-- show/hide function to add a user photo -->
-    </div>
+  <div class="container">
+    {{users.user.local.image}}
+    <!-- show/hide function to add a user photo -->
+  </div>
 </div>
 <div class="container-fluid">
   <h3>Bio</h3>
   <div>
-  <textarea rows="5" cols="50" maxlength="100" placeholder="Who are you?">
-  </textarea>
-</div>
-<!-- add  a function to show/hide profile edits -->
+    <textarea rows="5" cols="50" maxlength="500" placeholder="Who are you?">
+    </textarea>
+    <button ng-submit>Submit</button>
+  </div>
 </div>
 <div class="container-fluid">
   <h3>Favourites</h3>
   <div class="container">
-    
+
   </div>
   <!-- link favourites button on the campsite page to the user's profile page -->
 </div>

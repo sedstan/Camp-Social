@@ -77,10 +77,11 @@ function usersController(User, TokenService, $state, CurrentUser){
 
     return self
 
-    // Some function to allow user to edit upon click. 
-    // When user is logged in and clicks edit bio, the text box appears.
+    //Allows the current user to submit and edit their profile page.
     function editUser(checkLoggedIn) {
-      
+      // if currentUser, then allow for edit upon click.
+      var editUser = self.user.editUser;
+      console.log();
+
     }
   }
-
