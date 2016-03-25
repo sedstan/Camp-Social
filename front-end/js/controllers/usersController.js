@@ -79,9 +79,8 @@ function usersController(User, TokenService, $state, CurrentUser){
 
     //Allows the current user to submit and edit their profile page.
     function editUser(checkLoggedIn) {
-      // if currentUser, then allow for edit upon click.
+      // for CurrentUser check to to see if logged in. Then, if logged in, run a function to allow for the user to edit their profile page.
       var editUser = self.user.editUser;
-      console.log();
 
     }
   }
