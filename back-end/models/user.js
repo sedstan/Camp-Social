@@ -7,6 +7,7 @@ var userSchema = mongoose.Schema({
     username: { type: String },
     name: { type: String },
     image: { type: String },
+    bio:   { type: String},
     email: { type: String, unique: true, required: true },
     password: { type: String, required: true }
   }
@@ -21,4 +22,3 @@ userSchema.methods.validPassword = function(password) {
 }
 
 module.exports = mongoose.model("User", userSchema);
-
