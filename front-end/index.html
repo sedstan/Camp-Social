@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html ng-app ="CampSocial">
+<head>
+  <meta charset="utf-8">
+  <title>Camp Social</title>
+  <!-- External Files -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+  <script type="text/javascript" src="js/app.js"></script>
+  <script type="text/javascript" src='js/models/user.js'></script>
+  <script type="text/javascript" src='js/models/campsite.js'></script>
+  <script type="text/javascript" src='js/controllers/usersController.js'></script>
+  <script type="text/javascript" src='js/controllers/campsitesController.js'></script>
+  <script type="text/javascript" src='js/services/authInterceptor.js'></script>
+  <script type="text/javascript" src='js/services/currentUser.js'></script>
+  <script type="text/javascript" src='js/services/tokenService.js'></script>
+  <!-- Bower Componenets -->
+  <script type="text/javascript"> src="./bower_components/angular/angular.js"</script>
+  <script type="text/javascript" src="./bower_components/angular-resource/angular-resource.min.js"></script>
+  <script type="text/javascript" src="./bower_components/angular-jwt/dist/angular-jwt.js"></script>
+  <script type="text/javascript" src="./bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+  <script type="text/javascript" src="./bower_components/bootstrap/dist/js/bootstrap.js"></script>
+  <script type="text/javascript" src="./bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+  <!-- Stylesheets -->
+  <link href='https://fonts.googleapis.com/css?family=Quicksand:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="./bower_components/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="./css/style.css">
+
+</head>
+
+<body ng-controller="usersController as users">
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a ui-sref="home" class="navbar-brand" href="#"><img src="./assets/images/campsocial-04.png">Camp Social</a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          <li ng-show="users.checkLoggedIn()"><a ui-sref="campsites">Campsites</a></li>
+          <li ng-show="users.checkLoggedIn()"><a ui-sref="profile">Profile</a></li>
+          <li ng-show="!users.checkLoggedIn()"><a ui-sref="register">Register</a></li>
+          <li ng-show="!users.checkLoggedIn()"><a ui-sref="home">Login</a></li>
+          <li ng-show="users.checkLoggedIn()"><a ui-sref="home" ng-click="users.logout()">Logout</a></li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+<div ui-view></div>
+
+</body>
+</html>

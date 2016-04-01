@@ -1,0 +1,44 @@
+<div id="nature">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="form-box">
+        <section ng-hide="users.isLoggedIn()">
+          <h2>Register</h2>
+          <form class="form-horizontal" ng-submit="users.register()">
+            <div class='form-group'>
+              <div>
+                <input type="name" name="name" class="form-control"  placeholder="Name" ng-model="users.user.name">
+              </div>
+            </div>
+            <div class='form-group'>
+              <div>
+              <input type="string" name="bio" class="form-control"  placeholder="Bio" ng-model="users.user.bio">
+              </div>
+            </div>
+            <div class='form-group'>
+              <div>
+              <input type="file" name="image" class="form-control"  placeholder="Image" ng-model="users.user.image">
+              </div>
+            </div>
+            <div class='form-group'>
+              <div>
+              <input type="email" name="email" class="form-control" placeholder="Email" ng-model="users.user.email">
+              </div>
+            </div>
+            <div class="form-group">
+              <div>
+                <input type="password" name="password" class="form-control" placeholder="Password" ng-model="users.user.password">
+              </div>
+            </div>
+            <div class="form-group">
+              <div>
+                <button class="btn btn-default form-control" type="submit">Register</button>
+              </div>
+            </div>
+            <a ui-sref='home'>Click here to login.</a>
+          </form>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>

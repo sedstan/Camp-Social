@@ -1,0 +1,100 @@
+body{
+  font-family: 'Quicksand', sans-serif;
+}
+.card {
+  width: 100%;
+  background-color: white;
+  border: 2px solid slategrey;
+  margin: 10px 0;
+  padding: 15px;
+  height: 240px;
+  position: relative;
+}
+
+.card button {
+  display: block;
+  width: calc(100% - 30px);
+  background-color: #5FBD6A;
+  border-radius: 3px;
+  color: white;
+  position: absolute;
+  bottom: 15px;
+  left: 15px; 
+}
+
+#nature{
+  height: 100vh;
+  width: 100vw;
+  background-image: url("../assets/images/nature-background.jpeg");
+  background-position: center;
+  background-size: cover;
+  text-align: center;
+}
+
+nav.navbar {
+  margin-bottom: 0;
+}
+
+nav img {
+  height: 35px;
+  float: left;
+  margin: -7px 10px 0 0;
+}
+
+.navbar-default .navbar-brand {
+  color: #5FBD6A;
+}
+
+.nav > li {
+  position: relative;
+  display: block;
+  text-align: right;
+}
+
+.navbar-brand{
+  font-weight: 700;
+  color: white;
+}
+
+.card-left {
+  width: calc(92% - 130px);
+  display: inline-block;
+  padding-right: 15px;
+  vertical-align: top;
+}
+
+.card-right{
+  height: 150px;
+  width:150px;
+  background-position: center;
+  background-size: cover;
+  border-radius: 50%;
+  display: inline-block;
+}
+.campsite-index{
+  padding-top: 15px;
+  background-image: url("../assets/images/campsocial-background.jpg");
+  background-size: 100%;
+  background-repeat:repeat-y; 
+}
+
+.form-box {
+  border: 20px solid white;
+  border-top: 0;
+  border-bottom: 0;
+  background-color: white;
+  padding: 20px;
+  margin: 30px auto;
+  width: 70%;
+}
+
+.form-box button {
+  width: 100%;
+  display: block;
+  background-color:#5FBD6A;
+  color: white; 
+}
+
+textarea {
+  resize: none;
+}
