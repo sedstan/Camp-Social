@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var databaseURL = 'mongodb://localhost:27017/campers';
+var databaseURL = 'mongodb://localhost:27017/camping';
 
 mongoose.connect(databaseURL);
 
@@ -13,5 +13,3 @@ var user1 = new User({
   password: "password"
 
 })
-
-
