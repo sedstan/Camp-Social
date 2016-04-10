@@ -6,7 +6,7 @@ CurrentUser.$inject = ["TokenService"]
 function CurrentUser(TokenService){
 
   var self  = this;
-  self.user = {} 
+  self.user = {}
 
   self.saveUser = function(user){
     self.user = user
@@ -19,5 +19,4 @@ function CurrentUser(TokenService){
   self.clearUser = function(){
     return self.user = {};
   }
-
 }

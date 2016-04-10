@@ -14,6 +14,7 @@ function mainRouter($stateProvider, $urlRouterProvider) {
           url:"/",
           templateUrl: "js/views/home.html"
 
+
         })
         .state('profile', {
           url: "/profile",
@@ -32,5 +33,5 @@ function mainRouter($stateProvider, $urlRouterProvider) {
 
 
 
-      $urlRouterProvider.otherwise("/");
+      $urlRouterProvider.otherwise("/profile");
 }

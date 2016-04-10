@@ -4,7 +4,7 @@ angular
 
 campsitesController.$inject = ["Campsite", "User", "CurrentUser", "$state"]
 function campsitesController(Campsite, User, CurrentUser, $state){
-  var self = this; 
+  var self = this;
 
   self.user = CurrentUser.getUser()
   if (!CurrentUser.getUser()._id) {
@@ -13,7 +13,7 @@ function campsitesController(Campsite, User, CurrentUser, $state){
 
   self.all     = [];
   self.users   = [];
-  self.campsite = {}; 
+  self.campsite = {};
 
   self.getCampsites = function(){
     Campsite.query(function(data){
@@ -38,5 +38,5 @@ function campsitesController(Campsite, User, CurrentUser, $state){
 
   self.getCampsites();
 return self
-  
+
 }
