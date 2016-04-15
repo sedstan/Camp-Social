@@ -8,12 +8,13 @@ module.exports = function(passport) {
     passReqToCallback: true,
   }, function(req, email, password, done) {
 
-    User.findOne({ 'local.email' : email }, function(err, user) { 
+    User.findOne({ 'local.email' : email }, function(err, user) {
       if (err) return done(err, false, {message: "Something went wrong. Please try again." });
       if (user) return done(null, false, { message: "This email is already registered." });
 
       var newUser = new User();
       newUser.local.name = req.body.name;
+      newUser.local.bio  = req.body.bio;
       newUser.local.image= req.body.image;
       newUser.local.email = email;
       newUser.local.password = newUser.encrypt(password);
