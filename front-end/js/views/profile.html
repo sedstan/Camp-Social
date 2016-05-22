@@ -1,14 +1,12 @@
 <!-- Logged in home display -->
 <div  class="container-fluid">
-  <h1>{{users.user.local.name}} 's Profile</h1>
+  <h1>Welcome {{users.user.local.username}} </h1>
   <div class="container-fluid">
-    {{users.user.image}}
-    <!-- show/hide function to add a user photo -->
   </div>
 </div>
 <div class="container-fluid">
   <h3>Bio</h3>
-  {{users.user.bio}}
+  {{users.user.local.bio}}
 </div>
 <div class="container-fluid">
   <h3>Favourites</h3>
