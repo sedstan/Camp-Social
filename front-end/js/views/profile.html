@@ -1,7 +1,8 @@
 <!-- Logged in home display -->
 <div  class="container-fluid">
   <h1>Welcome {{users.user.local.username}} </h1>
-  <div class="container-fluid">
+  <div ng-controller="usersController as users">
+    <img src ="{{users.user.local.image}}">
   </div>
 </div>
 <div class="container-fluid">
