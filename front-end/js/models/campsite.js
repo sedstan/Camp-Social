@@ -14,5 +14,5 @@ function Campsite($resource, API){
       'remove':    { method: 'DELETE' },
       'delete':    { method: 'DELETE' },
     }
-  );  
+  );
 }

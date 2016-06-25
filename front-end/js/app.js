@@ -1,5 +1,5 @@
 angular
-  .module('CampSocial', ['ngResource','angular-jwt','ui.router'])
+  .module('CampSocial', ['ngResource','angular-jwt','ui.router','ui.bootstrap'])
   .constant('API', 'http://localhost:3000/api')
   .config(authInterceptor)
   .config(mainRouter)

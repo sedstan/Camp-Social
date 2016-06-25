@@ -3,15 +3,17 @@
     <div class="col-sm-12 col-lg-4" ng-repeat="campsite in campsites.all">
       <div class="card">
         <div class='card-left'>
-        <a href="{{campsite.url}}"><h3>{{campsite.name}}</h3></a>
-        <p>{{campsite.address}}</p>
+          <a href="{{campsite.url}}"><h3>{{campsite.name}}</h3></a>
+          <p>{{campsite.address}}</p>
         </div>
         <div class="card-right" style="background-image: url('{{campsite.image}}')">
 
         </div>
         <button class="btn">Add to my favorites</button>
-
       </div>
     </div>
+  </div>
+  <div ng-controller="paginationCtrl">
+    <uib-pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" class="pagination-lg" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
   </div>
 </div>
