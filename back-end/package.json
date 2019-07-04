@@ -37,7 +37,7 @@
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
     "request": "^2.67.0",
-    "snyk": "^1.189.0"
+    "snyk": "^1.192.0"
   },
   "snyk": true
 }
